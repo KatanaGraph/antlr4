@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
   OutputVisitor visitor;
   tree->accept(&visitor);
 
-  std::cout << tree->toStringTree(&parser, true) << std::endl << std::endl;
+  //std::cout << tree->toStringTree(&parser, true) << std::endl << std::endl;
 
   return 0;
 }

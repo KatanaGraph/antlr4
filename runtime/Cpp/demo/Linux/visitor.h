@@ -117,12 +117,13 @@ public:
   }
 
   virtual antlrcpp::Any visitOC_ProjectionItems(CypherParser::OC_ProjectionItemsContext *ctx) override {
-    out("projection");
-    return recurse(ctx);
+    return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitOC_ProjectionItem(CypherParser::OC_ProjectionItemContext *ctx) override {
-    return visitChildren(ctx);
+    // TODO doesn't grab implicit projection identifiers
+    out("projection");
+    return recurse(ctx);
   }
 
   virtual antlrcpp::Any visitOC_Order(CypherParser::OC_OrderContext *ctx) override {
@@ -230,8 +231,11 @@ public:
   }
 
   virtual antlrcpp::Any visitOC_AddOrSubtractExpression(CypherParser::OC_AddOrSubtractExpressionContext *ctx) override {
-    out("binary operator");
-    return recurse(ctx);
+    if (ctx->children.size() == 3) { // expr + expr
+      out("binary operator");
+      return recurse(ctx);
+    }
+    return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitOC_MultiplyDivideModuloExpression(CypherParser::OC_MultiplyDivideModuloExpressionContext *ctx) override {
@@ -309,7 +313,7 @@ public:
 
   virtual antlrcpp::Any visitOC_FunctionName(CypherParser::OC_FunctionNameContext *ctx) override {
     out("function name");
-    return recurse(ctx);
+    return visitChildren(ctx);
   }
 
   virtual antlrcpp::Any visitOC_ExplicitProcedureInvocation(CypherParser::OC_ExplicitProcedureInvocationContext *ctx) override {
@@ -413,6 +417,7 @@ public:
 private:
   int level;
 
+  template <typename ...Params>
   void out(std::string str) {
     for (int i = 0; i < level; ++i) {
       printf("> ");
