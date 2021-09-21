@@ -4,12 +4,12 @@ if(NOT UNIX)
 endif()
 
 set(antlr4-demo-GENERATED_SRC
-   ${PROJECT_SOURCE_DIR}/demo/generated/TLexer.cpp 
-   ${PROJECT_SOURCE_DIR}/demo/generated/TParser.cpp
-   ${PROJECT_SOURCE_DIR}/demo/generated/TParserBaseListener.cpp
-   ${PROJECT_SOURCE_DIR}/demo/generated/TParserBaseVisitor.cpp
-   ${PROJECT_SOURCE_DIR}/demo/generated/TParserListener.cpp
-   ${PROJECT_SOURCE_DIR}/demo/generated/TParserVisitor.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherBaseListener.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherBaseVisitor.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherLexer.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherListener.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherParser.cpp
+   ${PROJECT_SOURCE_DIR}/demo/generated/CypherVisitor.cpp
  )
 
 foreach(src_file ${antlr4-demo-GENERATED_SRC})
@@ -25,9 +25,9 @@ add_custom_command(OUTPUT ${antlr4-demo-GENERATED_SRC}
    COMMAND 
    ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/demo/generated/
    COMMAND
-   "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/demo/generated/ -package antlrcpptest ${PROJECT_SOURCE_DIR}/demo/TLexer.g4 ${PROJECT_SOURCE_DIR}/demo/TParser.g4
+   "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/demo/generated/ -package antlrcpptest ${PROJECT_SOURCE_DIR}/demo/Cypher.g4
    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-   DEPENDS ${PROJECT_SOURCE_DIR}/demo/TLexer.g4 ${PROJECT_SOURCE_DIR}/demo/TParser.g4
+   DEPENDS ${PROJECT_SOURCE_DIR}/demo/Cypher.g4
    )
 
 include_directories(
