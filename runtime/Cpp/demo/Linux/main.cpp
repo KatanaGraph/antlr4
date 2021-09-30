@@ -4,6 +4,7 @@
 #include "CypherLexer.h"
 #include "CypherParser.h"
 #include "visitor.h"
+#include "name_visitor.h"
 
 int main(int argc, char **argv) {
   if (argc != 2) {
@@ -24,8 +25,13 @@ int main(int argc, char **argv) {
   //antlr4::tree::ParseTree* tree = parser.oC_Cypher();
   CypherParser::OC_CypherContext* tree = parser.oC_Cypher();
 
+  // NameVisitor n;
+  // tree->accept(&n);
+
   OutputVisitor visitor;
   tree->accept(&visitor);
+
+
 
   //std::cout << tree->toStringTree(&parser, true) << std::endl << std::endl;
 

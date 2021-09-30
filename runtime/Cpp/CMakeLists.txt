@@ -49,21 +49,6 @@ endif()
 
 file(STRINGS "VERSION" ANTLR_VERSION)
 
-if(WITH_DEMO)
-  # Java is not necessary if building without demos.
-  find_package(Java COMPONENTS Runtime REQUIRED)
-
-  if(NOT ANTLR_JAR_LOCATION)
-    message(FATAL_ERROR "Missing antlr4.jar location. You can specify it's path using: -DANTLR_JAR_LOCATION=<path>")
-  else()
-    get_filename_component(ANTLR_NAME ${ANTLR_JAR_LOCATION} NAME_WE)
-    if(NOT EXISTS "${ANTLR_JAR_LOCATION}")
-      message(FATAL_ERROR "Unable to find ${ANTLR_NAME} in ${ANTLR_JAR_LOCATION}")
-    else()
-      message(STATUS "Found ${ANTLR_NAME}: ${ANTLR_JAR_LOCATION}")
-    endif()
-  endif()
-endif(WITH_DEMO)
 
 if(MSVC_VERSION)
   set(MY_CXX_WARNING_FLAGS "  /W4")

@@ -24,8 +24,6 @@ add_custom_target(GenerateParser DEPENDS ${antlr4-demo-GENERATED_SRC})
 add_custom_command(OUTPUT ${antlr4-demo-GENERATED_SRC}
    COMMAND 
    ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/demo/generated/
-   COMMAND
-   "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/demo/generated/ ${PROJECT_SOURCE_DIR}/demo/Cypher.g4
    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
    DEPENDS ${PROJECT_SOURCE_DIR}/demo/Cypher.g4
    )
